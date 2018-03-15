@@ -16,7 +16,11 @@ function match_data(parent_file, children_file, callback) {
         }
         parentsData[i].childrens = arrayOfChildrens
       }
-      callback(parentsData)
+      let newFormat = JSON.stringify(parentsData,null,2)
+      fs.writeFile(parent_file,newFormat,'utf8',(err)=>{
+        if (err) throw err
+        callback(parentsData)
+      })
     })
   })
 }
