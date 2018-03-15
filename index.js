@@ -1,11 +1,12 @@
 const fs = require('fs');
 var sleep = require('sleep');
 
-function match_data(parent_file, children_file) {
+function match_data(parent_file, children_file, callback) {
   fs.readFile(parent_file,'utf8',(err,data)=>{
     let parentsData = JSON.parse(data)
     fs.readFile(children_file,'utf8',(err,data)=>{
       let childrensData = JSON.parse(data)
+      sleep.sleep(5)
       for(let i=0; i<parentsData.length; i++){
         let arrayOfChildrens = []
         for(let j=0; j<childrensData.length; j++){
@@ -15,10 +16,14 @@ function match_data(parent_file, children_file) {
         }
         parentsData[i].childrens = arrayOfChildrens
       }
-      console.log(parentsData)
+      callback(parentsData)
     })
   })
 }
 
-match_data('./parents.json', './childrens.json')
+function display(input){
+  console.log(input)
+}
+
+match_data('./parents.json', './childrens.json', display)
 console.log("Notification : Data sedang diproses !");
