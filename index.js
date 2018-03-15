@@ -3,6 +3,7 @@ var sleep = require('sleep');
 
 function match_data(parent_file, children_file) {
   let get_parents_obj = fs.readFile(parent_file, 'utf8',function(err, parents){
+    sleep.sleep(5);
     parents = JSON.parse(parents);
     let childrens = fs.readFileSync(children_file, 'utf8');
     childrens = JSON.parse(childrens);
@@ -26,4 +27,3 @@ function getParents(parents){
 
 match_data('./parents.json', './childrens.json')
 console.log("Notification : Data sedang diproses !");
-sleep.sleep(5);
